@@ -54,7 +54,9 @@ const Input = ({
         {label}
       </label>
       <div className={classNames(styles.inputWrapper, errorProp && styles.inputWrapperError)}>
-        {icon ? <Icon /> : null}
+
+        {icon ? <Icon type={icon} /> : null}
+
         <input 
           id={id}
           type={checkType()}
@@ -71,7 +73,7 @@ const Input = ({
         {password ? (
           <button
             type='button'
-            className={styles.showPassword}
+            className={styles.button}
             onClick={() => setIsPasswordVisible(prev => !prev)}  //비밀번호 보이기/숨기기
             disabled={disabled}
           >

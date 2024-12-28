@@ -8,7 +8,7 @@ const Loader = ({ basic }) => {
     return (
       <div className={styles.basicWrapper}>
         <RotatingLines
-          strokeColor='grey'
+          strokeColor='gray'
           strokeWidth='5'
           animationDuration='0.75'
           width='30'
@@ -21,7 +21,7 @@ const Loader = ({ basic }) => {
     <div className={styles.wrapper}>
       <div className={styles.loader}>
         <RotatingLines
-          strokeColor='grey'
+          strokeColor='gray'
           strokeWidth='5'
           animationDuration='0.75'
           width='30'

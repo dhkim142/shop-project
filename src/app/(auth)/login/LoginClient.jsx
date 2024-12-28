@@ -8,7 +8,10 @@ import { useRouter } from 'next/navigation';
 import styles from './Auth.module.scss';
 import Loader from '@/components/loader/Loader';
 import Input from '@/components/Input/Input';
-
+import AutoSignInCheckbox from '@/components/autoSignInCheckbox/AutoSignInCheckbox';
+import Divider from '@/components/divider/Divider';
+import Button from '@/components/button/Button';
+import Link from 'next/link';
 
 const LoginClient = () => {
 
@@ -34,7 +37,7 @@ const LoginClient = () => {
 
     return (
         <>
-            <Loader />
+            {isLoading && <Loader />}
             <section className={styles.page}>
                 <div className={styles.container}>
                     <h1 className={styles.logo}>
@@ -43,7 +46,7 @@ const LoginClient = () => {
 
                     <form className={styles.form} onSubmit={loginUser}>
                         {/* Input */}
-                        <Input 
+                        <Input
                             email
                             icon="letter"
                             id="email"
@@ -54,7 +57,7 @@ const LoginClient = () => {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        <Input 
+                        <Input
                             password
                             icon="lock"
                             id="password"
@@ -65,17 +68,55 @@ const LoginClient = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+
                         <div className={styles.group}>
-                            {/* 자동 로그인, 비밀번호 수정 */}
-                            자동 로그인, 비밀번호 수정
+                            <AutoSignInCheckbox
+                                checked={isAutoLogin}
+                                onChange={(e) => setisAutoLogin(e.target.checked)}
+                            />
+                            <Link href={'/reset'} className={styles.findLink}>
+                                Change password
+                                <svg width="11"
+                                height="18" 
+                                viewBox="0 0 11 18" 
+                                fill="none" 
+                                xmlns="http://www.w3.org/2000/svg"
+                                className={styles.findLinkArrow}
+                                >
+                                
+                                    <path d="M1.5 1L9.5 9L1.5 17" stroke="#0074E9" strokeWidth="2" />
+                                </svg>
+                            </Link>
+
                         </div>
 
                         <div className={styles.buttonGroup}>
-                            {/* Button */}
-                            Button
+                            <Button
+                                type="submit"
+                                width="100%"
+                            >
+                                Sign in
+                            </Button>
+
+                            <Divider />
+
+                            <Button
+                                width="100%"
+                                secondary
+                            >
+                                <Link href={"/register"}>
+                                    Sign up
+                                </Link>
+                            </Button>
+
+                            <Divider />
+
                             <div>
-                                {/*Button */}
-                                Button
+                                <Button
+                                    onClick={signInWithGoogle}
+                                >
+                                    Google Sign in
+                                </Button>
                             </div>
                         </div>
                     </form>
