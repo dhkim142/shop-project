@@ -11,12 +11,15 @@ import Input from '@/components/Input/Input';
 import AutoSignInCheckbox from '@/components/autoSignInCheckbox/AutoSignInCheckbox';
 import Divider from '@/components/divider/Divider';
 import Button from '@/components/button/Button';
+import { toast } from 'react-toastify';
 import Link from 'next/link';
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { auth } from '@/firebase/firebase';
 
 const LoginClient = () => {
 
     const [email, setEmail] = useState('');
-    const [password, setpassword] = useState('');
+    const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [isAutoLogin, setisAutoLogin] = useState(false);
 
@@ -29,10 +32,29 @@ const LoginClient = () => {
     const loginUser = (e) => {                          //로그인 버튼 클릭 후 호출 함수 (인증)
         e.preventDefault();
         setIsLoading(true);
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                setIsLoading(false);
+                toast.success('User login successfully');
+                redirectUser();                             //로그인 후 홈페이지로 이동
+            })
+            .catch((error) => {
+                setIsLoading(false);
+                toast.error(error.message);
+            })
     }
 
     const signInWithGoogle = () => {                    //Google 로그인 이용(인증)
-
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                toast.success('User login successfully');
+                redirectUser();                             //로그인 후 홈페이지로 이동
+            })
+            .catch((error) => {
+                toast.error(error.message);
+            })
     }
 
     return (
@@ -77,13 +99,13 @@ const LoginClient = () => {
                             <Link href={'/reset'} className={styles.findLink}>
                                 Change password
                                 <svg width="11"
-                                height="18" 
-                                viewBox="0 0 11 18" 
-                                fill="none" 
-                                xmlns="http://www.w3.org/2000/svg"
-                                className={styles.findLinkArrow}
+                                    height="18"
+                                    viewBox="0 0 11 18"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className={styles.findLinkArrow}
                                 >
-                                
+
                                     <path d="M1.5 1L9.5 9L1.5 17" stroke="#0074E9" strokeWidth="2" />
                                 </svg>
                             </Link>

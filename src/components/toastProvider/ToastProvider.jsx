@@ -1,8 +1,13 @@
+'use client'
 import React from 'react'
+import  {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const ToastProvider = () => {
   return (
-    <div>ToastProvider</div>
+    <ToastContainer 
+      autoClose={2000}          // 2초 후 자동으로 닫힘
+    />
   )
 }
 
