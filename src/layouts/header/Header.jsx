@@ -67,7 +67,7 @@ const Header = () => {
                 <ul className={styles.list}>
                     <li className={styles.item}>
                         <Link href={"/login"}>
-                            Sige In
+                            Sign In
                         </Link>
                     </li>
 
