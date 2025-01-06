@@ -81,7 +81,7 @@ const AddProductClient = () => {
                 category: product.category,
                 brand: product.brand,
                 desc: product.desc,
-                createAt: Timestamp.now().toDate()
+                createdAt: Timestamp.now().toDate().toISOString()
             })
             // 저장 후
             setIsLoading(false);
