@@ -1,7 +1,7 @@
 const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
-    product: [],
+    products: [],
     minPrice: null,
     maxPrice: null
 }
