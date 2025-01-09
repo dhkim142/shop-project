@@ -1,0 +1,72 @@
+.productList {
+    width: 100%;
+
+    .top {
+        height: 32px;
+        margin-bottom: 15px;
+        background-color: #fafafa;
+        width: 100%;
+        padding: 0 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .sort {
+            display: flex;
+            list-style: none;
+
+            label {
+                font-size: 1.4rem;
+                font-weight: 300;
+                margin: 0 5px;
+                cursor: pointer;
+            }
+
+            input[type="radio"] {
+                position: absolute;
+                visibility: hidden;
+                width: 0;
+                height: 0;
+                margin: 0;
+                padding: 0;
+            }
+
+            .selected {
+                label {
+                    color: var(--color-primary);
+                    font-weight: bold;
+                }
+            }
+            
+            .selected::before {
+                background-image: url('../../../assets/blue-check.svg');
+                background-size: 10px;
+                overflow: hidden;                                               //이미지 초과 시 숨김
+                content: ' ';
+                float: left;
+                display: block;
+                width: 10px;
+                height: 10px;
+                margin-top: 5px;
+            }
+        }
+
+        .limit {
+            select {
+                background-color: #fafafa;
+                font-size: 1.4rem;
+                font-weight: 400;
+                border: none;
+                outline: none;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .grid {
+        display: flex;
+        justify-content: space-around;                                          //아이템 사이, 양 끝에 동일한 여백 제공
+        flex-wrap: wrap;                                                        //아이템이 한 줄에 모두 배치하기 힘들면 줄 바꿈
+        background-color: #ffffff;
+    }
+}
