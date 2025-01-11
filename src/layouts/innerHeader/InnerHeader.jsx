@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import freshIcon from '@/assets/icon-fresh.svg';
 import rocketIcon from '@/assets/icon-rocket.svg';
 import newIcon from '@/assets/new.svg';
@@ -11,11 +11,35 @@ import styles from './InnerHeader.module.scss';
 
 import logo from '@/assets/colorful.svg';
 import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
+import { FILTER_BY_SEARCH } from '@/redux/slice/filterSlice';
+import { selectProducts } from '@/redux/slice/productSlice';
 
 const InnerHeader = () => {
 
   const router = useRouter();
+  const dispatch = useDispatch();
   const [search, setSearch] = useState("");
+
+  const products = useSelector(selectProducts);
+  
+  const handleSearch = () => {
+    if (search.trim() === "") {
+      // 검색어가 비어 있으면 필터링하지 않고 전체 상품을 유지
+      dispatch(FILTER_BY_SEARCH({ products, search: "" }));
+    } 
+    else {
+      // 검색어를 기준으로 필터링
+      dispatch(FILTER_BY_SEARCH({ products, search }));
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // 기본 동작 방지
+      handleSearch(); // 검색 실행
+    }
+  };
 
   const handleClick = () => {
     router.push('/cart');
@@ -52,9 +76,10 @@ const InnerHeader = () => {
                 type="search" id="searchKeyword"
                 placeholder="Search for the products you're looking for!"
                 value={search} onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={handleKeyDown}
               />
             </div>
-            <button type="button" className={styles.searchButton}></button>
+            <button type="button" className={styles.searchButton} onClick={handleSearch}></button>
             <button type="button" className={styles.voiceSearchButton}></button>
           </div>
         </fieldset>
@@ -91,7 +116,7 @@ const InnerHeader = () => {
           <li><Link href="/" >TravelTickets</Link></li>
         </ul>
       </div>
-    </div >
+    </div>
   )
 }
 
