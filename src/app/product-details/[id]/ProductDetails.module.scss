@@ -1,0 +1,114 @@
+.product {
+    width: 1050px;
+    margin: 0 auto;
+
+    .details {
+        padding-top: 2rem;
+        display: flex;
+        justify-content: space-between;
+
+        .img {
+            width: 479px;
+            height: 100%;
+            border: 1px solid var(--border-gray);
+            border-radius: 3px;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .content {
+            width: 479px;
+            padding: 0 5px;
+
+            .header {
+                padding-bottom: 10px;
+
+                .rating {
+                    display: flex;
+
+                    .count {
+                        font-size: 1.2rem;
+                        margin-left: 5px;
+                        color: #346aff !important;
+                    }
+                }
+
+
+                .brandName {
+                    font-size: 16px;
+                    color: #346aff;
+                    display: inline-block;
+                    margin-bottom: 3px;
+                }
+
+                .productName {
+                    font-size: 20px;
+                    font-weight: bold;
+                    width: 380px;
+                    margin-bottom: 3px;
+                }
+            }
+
+            .container {
+                padding: 1rem 0;
+
+                .price {
+                    color: #cb1400;
+                    font-weight: 500;
+                    font-size: 20px;
+                    line-height: 21px;
+                }
+
+                .rewardCashBadge {
+                    display: flex;
+                    align-items: center;
+                    margin-top: 10px;
+                    box-sizing: border-box;
+                    padding: 0 8px;
+                    height: 20px;
+                    border-radius: 10px;
+                    border: solid 1px var(--border-gray);
+                    background-color: var(--color-white);
+                    width: 145px;
+
+                    span {
+                        margin-left: 3px;
+                        font-size: 12px;
+                    }
+                }
+            }
+
+            .descWrapper {
+                padding: 1rem 0;
+                font-size: 1.3rem;
+            }
+
+            .bottom {
+                padding: 1rem 0;
+
+                .price {
+                    color: #cb1400;
+                    font-weight: 500;
+                    font-size: 20px;
+                    line-height: 21px;
+                    margin-bottom: 10px;
+                }
+
+                .count {
+                    display: flex;
+                    align-items: center;
+
+                    b {
+                        font-size: 1.5rem;
+                    }
+
+                    &>* {
+                        margin-right: 1.5rem;
+                    }
+                }
+            }
+        }
+    }
+}
