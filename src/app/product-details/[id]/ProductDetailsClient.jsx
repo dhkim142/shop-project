@@ -11,6 +11,9 @@ import priceFormat from '@/utils/priceFormat';
 import listCashIcon from '@/assets/list-cash-icon.png'
 import { count } from 'firebase/firestore';
 import Button from '@/components/button/Button';
+import useFetchDocuments from '@/hooks/useFetchDocuments';
+import { useDispatch } from 'react-redux';
+import { ADD_TO_CART, CALCULATE_TOTAL_QUANTITY } from '@/redux/slice/cartSlice';
 
 
 const ProductDetailsClient = () => {
@@ -21,7 +24,15 @@ const ProductDetailsClient = () => {
 
   const { document: product } = useFetchDocument('products', id);         // FetchDocument에서 데이터 가져오기
 
-  const addToCart = () => { };           //장바구니에 담기기
+  const { documents: reviews } = useFetchDocuments('reviews', ['productID', '==', id]);
+
+  const dispatch = useDispatch();
+
+  const addToCart = () => {
+    dispatch(ADD_TO_CART({...product, quantity: count}))
+    dispatch(CALCULATE_TOTAL_QUANTITY());
+  };
+  
   const today = new Date();
   const tomorrow = new Date(today.setDate(today.getDate() + 1))
   const tomorrowDate = tomorrow.getDate();
@@ -45,7 +56,7 @@ const ProductDetailsClient = () => {
                     {product.name}
                   </p>
                   <div className={styles.rating}>
-                    <Rating initialValue={0} size={17}/>
+                    <Rating initialValue={0} size={17} />
                     <span className={styles.count}>(0)</span>
                   </div>
                 </div>
@@ -70,7 +81,7 @@ const ProductDetailsClient = () => {
                   </p>
                   <div className={styles.count}>
                     <Button
-                      onClick={() => setCount(correntValue => correntValue - 1 )}
+                      onClick={() => setCount(correntValue => correntValue - 1)}
                       disabled={count > 1 ? false : true}
                       secondary
                     >
@@ -81,7 +92,7 @@ const ProductDetailsClient = () => {
                     </p>
                     <Button
                       secondary
-                      onClick={() => setCount(correntValue => correntValue + 1 )}
+                      onClick={() => setCount(correntValue => correntValue + 1)}
                     >
                       +
                     </Button>
@@ -96,7 +107,33 @@ const ProductDetailsClient = () => {
               </div>
             </div>
           </>
-        )}
+        )
+      }
+      <div className={styles.card}>
+        <h3>Review ({reviews.length})</h3>
+        <div>
+          {
+            reviews.length === 0 ? (
+              <p className={styles.noReviewText}>No reivew for this product</p>
+            ) : 
+            (
+              <>                    {/* map으로 데이터를 순회하면서 하나의 데이터마다 공간을 부여하기위해서 빈<>을 사용용 */}
+                {reviews.map((item) => {
+                  return (
+                    <ProductReviewItem
+                      key={item.id}
+                      rate={item.rate}
+                      review={item.review}
+                      reviewDate={item.reviewDate}
+                      userName={item.userName}
+                    />
+                  )
+                })}
+              </>
+            )
+          }
+        </div>
+      </div>
     </section>
   )
 }
