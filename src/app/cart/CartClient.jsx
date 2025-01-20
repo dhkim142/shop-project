@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react'
 import styles from './CartClient.module.scss'
 import { useDispatch, useSelector } from 'react-redux'
-import { ADD_TO_CART, CALCULATE_SUBTOTAL, CALCULATE_TOTAL_QUANTITY, CLEAR_CART, DECREASE_CART, REMOVE_FROM_CART, SAVE_URL, selectCartItems, selectCartTotalAmount, selectCartToTalQuantity } from '@/redux/slice/cartSlice'
+import { ADD_TO_CART, CALCULATE_SUBTOTAL, CALCULATE_TOTAL_QUANTITY, CLEAR_CART, DECREASE_CART, REMOVE_FROM_CART, SAVE_URL, selectCartItems, selectCartTotalAmount, selectCartTotalQuantity } from '@/redux/slice/cartSlice'
 import { selectIsLoggedIn } from '@/redux/slice/authSlice'
 import { useRouter } from 'next/navigation'
 import Heading from '@/components/heading/Heading'
