@@ -16,7 +16,7 @@ const CartClient = () => {
 
     const cartItems = useSelector(selectCartItems);
     const cartTotalAmount = useSelector(selectCartTotalAmount);
-    const cartTotalQuantity = useSelector(selectCartToTalQuantity);
+    const cartTotalQuantity = useSelector(selectCartTotalQuantity);
 
     const dispatch = useDispatch();
     const router = useRouter();
