@@ -52,7 +52,7 @@ const CheckoutClient = () => {
                     orderId,
                     paymentKey
                 }),
-                header: {
+                headers: {
                     Authorization: `Basic ${basicToken}`,
                     "Content-Type": "application/json"
                 }
@@ -71,7 +71,7 @@ const CheckoutClient = () => {
                 orderDate: date,
                 orderTime: time,
                 orderAmount: amount,
-                orderStatus: "Approve the payment",
+                orderStatus: "Approved",
                 cartItems,
                 shippingAddress,
                 createdAt: Timestamp.now().toDate()

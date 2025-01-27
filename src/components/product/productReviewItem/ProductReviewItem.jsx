@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './ProductReviewItem.module.scss'
 import { Rating } from 'react-simple-star-rating'
-import { formatTime } from '@/utils/day'
+import { formatTime } from '@/utils/dayjs'
 
 export const ProductReviewItem = ({
     rate,
