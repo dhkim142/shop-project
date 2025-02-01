@@ -14,6 +14,7 @@ import Button from '@/components/button/Button';
 import useFetchDocuments from '@/hooks/useFetchDocuments';
 import { useDispatch } from 'react-redux';
 import { ADD_TO_CART, CALCULATE_TOTAL_QUANTITY } from '@/redux/slice/cartSlice';
+import { ProductReviewItem } from '@/components/product/productReviewItem/ProductReviewItem';
 
 
 const ProductDetailsClient = () => {

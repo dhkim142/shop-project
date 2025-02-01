@@ -1,0 +1,20 @@
+.review {
+    .writer {
+        font-size: 1.5rem;
+
+        span {
+            font-size: 1.2rem;
+            color: var(--dark-gray);
+        }
+    }
+
+    .content {
+        font-size: 1.7rem;
+    }
+
+    .date {
+        line-height: 2rem;
+        font-size: 1.3rem;
+        color: var(--dark-gray);
+    }
+}
