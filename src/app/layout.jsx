@@ -4,6 +4,7 @@ import ToastProvider from "@/components/toastProvider/ToastProvider";
 import Footer from "@/layouts/footer/Footer";
 import Header from "@/layouts/header/Header";
 import Provider from "@/redux/Providers";
+import NavbarProvider from "@/layouts/navbar/NavbarProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,9 @@ export default function RootLayout({ children }) {
         <Provider>
           <Header />
           <ToastProvider />
-          {children}
+          <NavbarProvider>
+            {children}
+          </NavbarProvider>
           <Footer />
         </Provider>
       </body>

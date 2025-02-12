@@ -45,7 +45,7 @@ const filterSlice = createSlice({
 
             state.filteredProducts = tempProducts;
         },
-        // 위에 코드는 각각 독립적인 행동일 때, 아래 코드는 모든 필터링이 적용된 상품
+
         FILTER_BY: (state, action) => {
             const { products, price, brand, category } = action.payload;
             let tempProducts = [];
