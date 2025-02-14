@@ -30,8 +30,8 @@ const CheckoutSuccess = async({searchParams}) => {
       <ul className={styles.list}>
         <li><b>Product:</b> {payment.orderName}</li>
         <li><b>Order Number:</b> {payment.orderId}</li>
-        <li><b>Card Number:</b> {card.number}</li>
-        <li><b>Payment Price:</b>${" "}{priceFormat(card.amount)}</li>
+        <li><b>Card Number:</b> {card ? priceFormat(card.amount) : "N/A"}</li>
+        <li><b>Payment Price:</b>${" "} {card ? priceFormat(card.amount) : "N/A"}</li>
         <li><b>Payment Approval Data:</b>{" "}{formatTime(payment.approvedAt)}</li>
       </ul>
       <Button>

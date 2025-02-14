@@ -33,7 +33,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link href='/admin/Orders' className={pathname === '/admin/Orders' ? `${styles.active}` : ''}>
+            <Link href='/admin/orders' className={pathname === '/admin/orders' ? `${styles.active}` : ''}>
               Order
             </Link>
           </li>

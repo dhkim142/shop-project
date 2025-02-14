@@ -43,7 +43,7 @@ const OrderDetailsClient = () => {
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Total</th>
-                                    <th>Perform</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
