@@ -1,7 +1,25 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import classNames from 'classnames'
 import styles from './Input.module.scss'
 import Icon from '../icon/Icon'
+
+interface IInputProps {
+  in: string;
+  label: string;
+  name?: string;
+  labelVisible?: boolean;
+  icon?: 'letter' | 'block' | 'show' | 'hide';
+  email?: boolean;
+  password?: boolean;
+  placeholder?: string;
+  readonly?: boolean;
+  disabled?: boolean;
+  value?: string;
+  error?: {message: string};
+  className?: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  [x: string]: any;
+}
 
 const Input = ({
   id,
@@ -19,11 +37,11 @@ const Input = ({
   className = '',
   onChange,
   ...restProps
-}) => {
+}: IInputProps) => {
 
-  const [inputValue, setInputValue] = useState(value ? value : '')                     //input 값 상태 저장
+  const [inputValue, setInputValue] = useState(value ? value : '')                     //save the input value
 
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false)                 //비밀번호 보이기/숨기기 상태 저장              
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false)                 //save the information about password 'show', 'hide'              
 
   const checkType = () => {
     if(email) {
@@ -37,7 +55,7 @@ const Input = ({
     return 'text';
   }
 
-  const handleChange = (e) => {                           //input 값 변경 시 호출 함수  
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {                           //call the function when the value change
     setInputValue(e.target.value);
     onChange(e)
   }
@@ -48,8 +66,8 @@ const Input = ({
   return (
     <div className={classNames(styles.formControl, className)}>
       <label
-        htmlFor={id}                        //label과 input 연결
-        className={classNames(styles.label, labelVisible || styles.labelHidden)}        //labelVisible이 없을 경우 label 숨김
+        htmlFor={id}                        //connect input with label
+        className={classNames(styles.label, labelVisible || styles.labelHidden)}        //the label hide when there is no lavelVisible
       >
         {label}
       </label>
@@ -74,7 +92,7 @@ const Input = ({
           <button
             type='button'
             className={styles.button}
-            onClick={() => setIsPasswordVisible(prev => !prev)}  //비밀번호 보이기/숨기기
+            onClick={() => setIsPasswordVisible(prev => !prev)}  //password 'show' or 'hide'
             disabled={disabled}
           >
             <Icon type={iconType} alt={iconLabel} title={iconLabel} />
@@ -82,7 +100,7 @@ const Input = ({
         ) : null}
         
       </div>
-      {errorProp && (         //errorProp이 있을 경우 error 메시지 출력           
+      {errorProp && (         //Displays the error message when there is errorProp          
         <span role='alert' className={styles.error}>
           {errorProp.message}
         </span>
