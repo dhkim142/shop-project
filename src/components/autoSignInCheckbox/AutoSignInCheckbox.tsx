@@ -6,7 +6,7 @@ import Tooltip from '../tooltip/Tooltip'
 interface IAutoSignInCheckboxProps {
     label?: string;
     checked: boolean;
-    disabled: boolean;
+    disabled?: boolean;
     orientation?: 'top' | 'bottom' | 'left' | 'right';
     message?: string;
     onChange: (e: ChangeEvent<HTMLInputElement>) => void;

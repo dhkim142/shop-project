@@ -24,7 +24,7 @@ const RegisterClient = () => {
 
     const router = useRouter();
 
-    const registerUser = (e) => {                          //로그인 버튼 클릭 후 호출 함수 (인증)
+    const registerUser = (e: React.FormEvent<HTMLFormElement>) => {                          
         e.preventDefault();
         if (password !== cPassword) {
             return toast.error('Password do not match');
@@ -38,7 +38,7 @@ const RegisterClient = () => {
                 setIsLoading(false);
 
                 toast.success('User created successfully');
-                router.push('/login');                              //로그인 후 홈페이지로 이동 
+                router.push('/login');                             
             })
             .catch((error) => {
                 setIsLoading(false);

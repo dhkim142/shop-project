@@ -26,10 +26,10 @@ const LoginClient = () => {
     const router = useRouter();
 
     const redirectUser = () => {
-        router.push('/');                               //로그인 후 홈페이지로 이동
+        router.push('/');                               
     }
 
-    const loginUser = (e) => {                          //로그인 버튼 클릭 후 호출 함수 (인증)
+    const loginUser = (e: React.FormEvent<HTMLFormElement>) => {                          
         e.preventDefault();
         setIsLoading(true);
 
@@ -37,7 +37,7 @@ const LoginClient = () => {
             .then((userCredential) => {
                 setIsLoading(false);
                 toast.success('User login successfully');
-                redirectUser();                             //로그인 후 홈페이지로 이동
+                redirectUser();                             
             })
             .catch((error) => {
                 setIsLoading(false);
@@ -45,12 +45,12 @@ const LoginClient = () => {
             })
     }
 
-    const signInWithGoogle = () => {                    //Google 로그인 이용(인증)
+    const signInWithGoogle = () => {                    // google authentication
         const provider = new GoogleAuthProvider();
         signInWithPopup(auth, provider)
             .then((result) => {
                 toast.success('User login successfully');
-                redirectUser();                             //로그인 후 홈페이지로 이동
+                redirectUser();                             
             })
             .catch((error) => {
                 toast.error(error.message);

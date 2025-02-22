@@ -4,11 +4,11 @@ import styles from './Input.module.scss'
 import Icon from '../icon/Icon'
 
 interface IInputProps {
-  in: string;
+  id: string;
   label: string;
   name?: string;
   labelVisible?: boolean;
-  icon?: 'letter' | 'block' | 'show' | 'hide';
+  icon?: 'letter' | 'lock' | 'show' | 'hide';
   email?: boolean;
   password?: boolean;
   placeholder?: string;

@@ -15,7 +15,7 @@ const ResetClient = () => {
     const [email, setEmail] = useState('');
     const [isLoading, setisLoading] = useState(false);
 
-    const resetPassword = (e) => {
+    const resetPassword = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setisLoading(true);
 
@@ -42,6 +42,8 @@ const ResetClient = () => {
 
                         <form onSubmit={resetPassword}>
                             <Input
+                                id='reset'
+                                label='reset'
                                 type="email"
                                 placeholder="Email"
                                 value={email}

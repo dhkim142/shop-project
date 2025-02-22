@@ -1,6 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { RootState } from '../store';
 
-const initialState = {
+interface IAuthState {
+    isLoggedIn: boolean;
+    email: null | string;
+    userName: null | string;
+    userID: null | string;
+}
+
+const initialState: IAuthState = {
     isLoggedIn: false,
     email: null,
     userName: null,
@@ -10,7 +18,7 @@ const initialState = {
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {                                             // 상태를 업데이트
+    reducers: {                                             
         SET_ACTIVE_USER: (state, action) => {
             const { email, userName, userID } = action.payload;
             state.isLoggedIn = true;
@@ -18,7 +26,7 @@ const authSlice = createSlice({
             state.userName = userName;
             state.userID = userID;
         },
-        REMOVE_ACTIVE_USER: (state) => {                    // 로그아웃을 위한 것이므로 payload할 필요없이 초기상태로 만들면 됨
+        REMOVE_ACTIVE_USER: (state) => {                    // This is just logout, so just set up to initialization. That is, we don't need to use 'payload'
             state.isLoggedIn = false;
             state.email = null;
             state.userName = null;
@@ -28,9 +36,9 @@ const authSlice = createSlice({
 })
 
 export const { SET_ACTIVE_USER, REMOVE_ACTIVE_USER } = authSlice.actions;
-export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
-export const selectEmail = (state) => state.auth.email;
-export const selectUserName = (state) => state.auth.userName;
-export const selectUserID = (state) => state.auth.userID;
+export const selectIsLoggedIn = (state: RootState) => state.auth.isLoggedIn;
+export const selectEmail = (state: RootState) => state.auth.email;
+export const selectUserName = (state: RootState) => state.auth.userName;
+export const selectUserID = (state: RootState) => state.auth.userID;
 
 export default authSlice.reducer;
