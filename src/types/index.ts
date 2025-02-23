@@ -36,4 +36,8 @@ export interface IOrder {
     userEmail: string;
     userID: string;
     shippingAddress: IShippingAddress; 
+    createdAt: {
+        seconds: number;
+        nanoseconds: number;
+    }
 }

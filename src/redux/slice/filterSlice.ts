@@ -52,6 +52,31 @@ const filterSlice = createSlice({
             state.filteredProducts = tempProducts;
         },
 
+        FILTER_BY: (state, action: { payload: { products: IProduct[], price: number, brand: string, category: string } }) => {
+            const { products, price, brand, category } = action.payload;
+            let tempProducts = [];
+
+            if (category === "All") {
+                tempProducts = products;
+            } else {
+                tempProducts = products.filter(
+                    (product) => product.category === category
+                )
+            }
+            if (brand === "All") {
+                tempProducts = tempProducts;
+            } else {
+                tempProducts = tempProducts.filter(
+                    (product) => product.brand === brand
+                )
+            }
+
+            tempProducts = tempProducts.filter(product => product.price <= price);
+
+            state.filteredProducts = tempProducts;
+
+        },
+
         SORT_PRODUCTS: (state, action: {payload: {products: IProduct[], sort: string}}) => {
             const {products, sort} = action.payload;
             let tempProducts: IProduct[] = [];
@@ -86,7 +111,7 @@ const filterSlice = createSlice({
     }
 });
 
-export const { FILTER_BY_BRAND, FILTER_BY_CATEGORY, FILTER_BY_PRICE, SORT_PRODUCTS, FILTER_BY_SEARCH } = filterSlice.actions;
+export const { FILTER_BY_BRAND, FILTER_BY_CATEGORY, FILTER_BY_PRICE, FILTER_BY, SORT_PRODUCTS, FILTER_BY_SEARCH } = filterSlice.actions;
 
 export const selectFilteredProducts = (state: RootState) => state.filter.filteredProducts;
 
