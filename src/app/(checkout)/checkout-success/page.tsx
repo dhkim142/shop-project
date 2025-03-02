@@ -6,6 +6,10 @@ import Link from 'next/link'
 import { formatTime } from '@/utils/dayjs'
 import priceFormat from '@/utils/priceFormat'
 
+interface ICheckoutSuccessProps {
+  searchParams: { orderId: string } | Promise<{ orderId: string }>;
+}
+
 interface IPayment {
   orderName: string;
   orderId: string;
@@ -16,11 +20,7 @@ interface IPayment {
   }
 }
 
-export default async function CheckoutSuccess({
-  searchParams,
-}: {
-  searchParams: { orderId: string }
-}) {
+const CheckoutSuccess = async({searchParams}: ICheckoutSuccessProps) => {
 
   const secretKey = process.env.NEXT_PUBLIC_TOSS_SECRET_KEY
 
@@ -54,3 +54,5 @@ export default async function CheckoutSuccess({
     </section>
   )
 }
+
+export default CheckoutSuccess
