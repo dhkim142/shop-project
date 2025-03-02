@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import styles from './Pagination.module.scss'
 
 interface IPaginationProps {
@@ -15,7 +15,9 @@ const Pagination = ({
   totalProducts
 }: IPaginationProps) => {
 
-  const pageNumbers = [];
+  const pageNumbers = useMemo(() => {
+    return Array.from({ length: Math.ceil(totalProducts / productsPerPage) }, (_, i) => i + 1);
+  }, [totalProducts, productsPerPage]);
 
   const [pageNumberLimit] = useState(3);
   const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
@@ -43,9 +45,7 @@ const Pagination = ({
     }
   }
 
-  for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
-    pageNumbers.push(i);
-  }
+  
 
   return (
     <div className={styles.pagination}>

@@ -19,7 +19,7 @@ const ProductReviewItem = ({
   return (
     <div className={styles.review}>
         <p className={styles.writer}>
-            {userName} <span>'s review</span>
+            {userName} <span>&apos;s review</span>
         </p>
         <Rating 
             initialValue={rate} readonly size={25}
