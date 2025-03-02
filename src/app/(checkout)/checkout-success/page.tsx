@@ -6,12 +6,6 @@ import Link from 'next/link'
 import { formatTime } from '@/utils/dayjs'
 import priceFormat from '@/utils/priceFormat'
 
-interface ICheckoutSuccessProps {
-  searchParams: {
-    orderId: string;
-  }
-}
-
 interface IPayment {
   orderName: string;
   orderId: string;
@@ -22,12 +16,17 @@ interface IPayment {
   }
 }
 
-const CheckoutSuccess = async ({ searchParams }: ICheckoutSuccessProps) => {
+// 인라인으로 props 타입 지정
+export default async function CheckoutSuccess({
+  searchParams,
+}: {
+  searchParams: { orderId: string }
+}) {
   if (!searchParams.orderId || typeof searchParams.orderId !== 'string') {
     return <p>Invalid order ID.</p>;
   }
 
-  const secretKey = process.env.TOSS_SECRET_KEY; // ✅ `NEXT_PUBLIC_` 제거
+  const secretKey = process.env.TOSS_SECRET_KEY; // NEXT_PUBLIC_ 없이 사용
   if (!secretKey) {
     console.error("TOSS_SECRET_KEY is not defined");
     return <p>Payment processing error. Please contact support.</p>;
@@ -62,7 +61,6 @@ const CheckoutSuccess = async ({ searchParams }: ICheckoutSuccessProps) => {
 
   const { card } = payment;
 
-
   return (
     <section className={styles.success}>
       <Heading title="Order Success"/>
@@ -79,5 +77,3 @@ const CheckoutSuccess = async ({ searchParams }: ICheckoutSuccessProps) => {
     </section>
   )
 }
-
-export default CheckoutSuccess
