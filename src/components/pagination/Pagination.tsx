@@ -25,7 +25,7 @@ const Pagination = ({
 
   const paginate = (pageNumber: number) => {
     setCurrentPage(pageNumber);
-  }
+  };
 
   const paginateNextPage = () => {
     setCurrentPage(currentPage + 1);
@@ -34,7 +34,7 @@ const Pagination = ({
       setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
       setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
     }
-  }
+  };
 
   const paginatePrevPage = () => {
     setCurrentPage(currentPage - 1);
@@ -43,7 +43,7 @@ const Pagination = ({
       setMaxPageNumberLimit(maxPageNumberLimit - pageNumberLimit);
       setMinPageNumberLimit(minPageNumberLimit - pageNumberLimit);
     }
-  }
+  };
 
   
 
