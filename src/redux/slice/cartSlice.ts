@@ -26,7 +26,7 @@ const cartSlice = createSlice ({
                 (item) => item.id === action.payload.id
             )
 
-            const increaseCount = action.payload.quantity ? action.payload.quantity : 1;
+            const increaseCount = action.payload.quantity ? action.payload.quantity : 0;
 
             if(productIndex >= 0) {
                 state.cartItems[productIndex].cartQuantity += increaseCount
