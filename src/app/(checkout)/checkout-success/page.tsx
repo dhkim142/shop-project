@@ -6,6 +6,12 @@ import Link from 'next/link'
 import { formatTime } from '@/utils/dayjs'
 import priceFormat from '@/utils/priceFormat'
 
+interface ICheckoutSuccessProps {
+  searchParams: Promise<{
+    orderId: string;
+  }>
+}
+
 interface IPayment {
   orderName: string;
   orderId: string;
@@ -16,32 +22,24 @@ interface IPayment {
   }
 }
 
-export default async function CheckoutSuccess({
-  searchParams,
-}: {
-  searchParams: Promise<{ orderId: string }>;
-}) {
-  const resolvedSearchParams = await searchParams;
-  const orderId = resolvedSearchParams.orderId;
-  if (!orderId) {
-    return <p>Invalid order ID.</p>;
-  }
+const CheckoutSuccess = async ({ searchParams }: ICheckoutSuccessProps) => {
 
-  const secretKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY;
-  if (!secretKey) {
-    console.error("TOSS_SECRET_KEY is not defined");
-    return <p>Payment processing error. Please contact support.</p>;
-  }
+  const secretKey = process.env.NEXT_PUBLIC_TOSS_SECRET_KEY
 
-  const url = `https://api.tosspayments.com/v1/payments/orders/${orderId}`;
-  const basicToken = Buffer.from(`${secretKey}:`, "utf-8").toString("base64");
+  const params = await searchParams;
+  const url = `https://api.tosspayments.com/v1/payments/orders/${params.orderId}`;
+  const basicToken = Buffer.from(`${secretKey}:`, "utf-8").toString('base64');
 
   const payment: IPayment = await fetch(url, {
     headers: {
       Authorization: `Basic ${basicToken}`,
       "Content-Type": "application/json"
     }
-  }).then(response => response.json());
+  }).then((res) => {
+    return res.json()
+  })
+
+  console.log('payment', payment);
 
   const { card } = payment;
 
@@ -51,7 +49,7 @@ export default async function CheckoutSuccess({
       <ul className={styles.list}>
         <li><b>Product:</b> {payment.orderName}</li>
         <li><b>Order Number:</b> {payment.orderId}</li>
-        <li><b>Card Number:</b> {card ? priceFormat(card.amount) : "N/A"}</li>
+        <li><b>Card Number:</b> {card.number}</li>
         <li><b>Payment Price:</b> ${card ? priceFormat(card.amount) : "N/A"}</li>
         <li><b>Payment Approval Date:</b> {formatTime(payment.approvedAt)}</li>
       </ul>
@@ -61,3 +59,5 @@ export default async function CheckoutSuccess({
     </section>
   );
 }
+
+export default CheckoutSuccess

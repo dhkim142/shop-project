@@ -12,6 +12,7 @@ import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { FILTER_BY_SEARCH } from '@/redux/slice/filterSlice';
 import { selectProducts } from '@/redux/slice/productSlice';
+import { selectCartTotalQuantity } from '@/redux/slice/cartSlice';
 
 const InnerHeader = () => {
 
@@ -20,6 +21,7 @@ const InnerHeader = () => {
   const [search, setSearch] = useState("");
 
   const products = useSelector(selectProducts);
+  const cartTotalQuantity = useSelector(selectCartTotalQuantity);
   
   const handleSearch = () => {
     if (search.trim() === "") {
@@ -92,7 +94,7 @@ const InnerHeader = () => {
             className={classNames(styles.button, styles.cartButton)}>
             Cart
           </button>
-          <strong className={styles.cartProductCount}>1</strong>
+          <strong className={styles.cartProductCount}>{cartTotalQuantity}</strong>
         </div>
       </div>
       <div className={styles.typeNavigation}>
