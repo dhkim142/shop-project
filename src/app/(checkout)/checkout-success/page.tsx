@@ -22,23 +22,46 @@ interface IPayment {
   }
 }
 
-const CheckoutSuccess = async({searchParams}: ICheckoutSuccessProps) => {
+const CheckoutSuccess = async ({ searchParams }: ICheckoutSuccessProps) => {
+  if (!searchParams.orderId || typeof searchParams.orderId !== 'string') {
+    return <p>Invalid order ID.</p>;
+  }
 
-  const secretKey = process.env.TOSS_SECRET_KEY
+  const secretKey = process.env.TOSS_SECRET_KEY; // ✅ `NEXT_PUBLIC_` 제거
+  if (!secretKey) {
+    console.error("TOSS_SECRET_KEY is not defined");
+    return <p>Payment processing error. Please contact support.</p>;
+  }
 
-  const url = `https://api.tosspayments.com/v1/payments/orders/${searchParams.orderId}`
-  const basicToken = Buffer.from(`${secretKey}:`, "utf-8" ).toString('base64')
+  const url = `https://api.tosspayments.com/v1/payments/orders/${searchParams.orderId}`;
+  const basicToken = Buffer.from(`${secretKey}:`, "utf-8").toString("base64");
 
-  const payment: IPayment = await fetch(url, {
-    headers: {
-      Authorization: `Basic ${basicToken}`,
-      "Content-Type": "application/json"
+  let payment: IPayment | null = null;
+
+  try {
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Basic ${basicToken}`,
+        "Content-Type": "application/json"
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch payment data: ${response.statusText}`);
     }
-  }).then((response) => {
-    return response.json();
-  })
 
-  const {card} = payment;
+    payment = await response.json();
+  } catch (error) {
+    console.error("Error fetching payment data:", error);
+    return <p>Failed to load payment details.</p>;
+  }
+
+  if (!payment) {
+    return <p>Payment details not found.</p>;
+  }
+
+  const { card } = payment;
+
 
   return (
     <section className={styles.success}>
