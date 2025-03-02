@@ -27,7 +27,7 @@ export default async function CheckoutSuccess({
     return <p>Invalid order ID.</p>;
   }
 
-  const secretKey = process.env.TOSS_SECRET_KEY;
+  const secretKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY;
   if (!secretKey) {
     console.error("TOSS_SECRET_KEY is not defined");
     return <p>Payment processing error. Please contact support.</p>;
