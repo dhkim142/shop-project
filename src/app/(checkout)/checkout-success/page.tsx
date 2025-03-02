@@ -1,11 +1,11 @@
-import Heading from '@/components/heading/Heading';
-import React from 'react';
-import styles from './CheckoutSuccess.module.scss';
-import Button from '@/components/button/Button';
-import Link from 'next/link';
-import { formatTime } from '@/utils/dayjs';
-import priceFormat from '@/utils/priceFormat';
-import { ParsedUrlQuery } from 'querystring';
+import Heading from '@/components/heading/Heading'
+import React from 'react'
+import styles from './CheckoutSuccess.module.scss'
+import Button from '@/components/button/Button'
+import Link from 'next/link'
+import { formatTime } from '@/utils/dayjs'
+import priceFormat from '@/utils/priceFormat'
+import { ParsedUrlQuery } from 'querystring'
 
 interface IPayment {
   orderName: string;
@@ -20,9 +20,10 @@ interface IPayment {
 export default async function CheckoutSuccess({
   searchParams,
 }: {
-  searchParams: ParsedUrlQuery; 
+  searchParams: ParsedUrlQuery | Promise<ParsedUrlQuery>;
 }) {
-  const orderId = searchParams.orderId;
+  const resolvedSearchParams = await Promise.resolve(searchParams);
+  const orderId = resolvedSearchParams.orderId;
   if (!orderId || Array.isArray(orderId)) {
     return <p>Invalid order ID.</p>;
   }
@@ -69,8 +70,8 @@ export default async function CheckoutSuccess({
         <li><b>Product:</b> {payment.orderName}</li>
         <li><b>Order Number:</b> {payment.orderId}</li>
         <li><b>Card Number:</b> {card ? priceFormat(card.amount) : "N/A"}</li>
-        <li><b>Payment Price:</b>${" "} {card ? priceFormat(card.amount) : "N/A"}</li>
-        <li><b>Payment Approval Date:</b>{" "}{formatTime(payment.approvedAt)}</li>
+        <li><b>Payment Price:</b> ${card ? priceFormat(card.amount) : "N/A"}</li>
+        <li><b>Payment Approval Date:</b> {formatTime(payment.approvedAt)}</li>
       </ul>
       <Button>
         <Link href="/order-history">Order Status</Link>
