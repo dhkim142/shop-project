@@ -1,5 +1,5 @@
 const priceFormat = (price: number) => {
-    return price.toLocaleString('en-US');                            //price에 달러에 맞에 format을 적용용
+    return price.toLocaleString('en-US');                           
 }
 
 export default priceFormat
