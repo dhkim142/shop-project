@@ -7,7 +7,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import styles from './InnerHeader.module.scss';
-import logo from '@/assets/colorful.svg';
+import com from '@/assets/com.svg';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { FILTER_BY_SEARCH } from '@/redux/slice/filterSlice';
@@ -45,7 +45,7 @@ const InnerHeader = () => {
     <div className={styles.innerHeader}>
       <h1 className={styles.brand}>
         <Link href="/">
-          <Image src={logo} alt="logo" width={211} height={48} priority />
+          <Image src={com} alt="logo" width={211} height={48} priority />
         </Link>
       </h1>
       <button type="button" className={styles.buttonCategory}>Category</button>

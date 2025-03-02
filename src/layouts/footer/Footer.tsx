@@ -1,6 +1,6 @@
 'use client';
 import React from "react";
-import colorLogo from "@/assets/colorful.svg";
+import com from "@/assets/com.svg";
 import facebookIcon from "@/assets/sns-facebook.svg";
 import instagramIcon from "@/assets/sns-instagram.svg";
 import naverIcon from "@/assets/sns-naver-blog.svg";
@@ -24,7 +24,7 @@ const Footer = () => {
 
     <div className={styles.DHSHOPInformation}>
       <figure className={styles.logo}>
-        <Image src={colorLogo} alt="logo1" />
+        <Image src={com} alt="logo1" width={300} height={70} priority />
       </figure>
 
       <ul className={styles.DHSHOPInformationList}>
