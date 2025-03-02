@@ -5,7 +5,6 @@ import Button from '@/components/button/Button'
 import Link from 'next/link'
 import { formatTime } from '@/utils/dayjs'
 import priceFormat from '@/utils/priceFormat'
-import { ParsedUrlQuery } from 'querystring'
 
 interface IPayment {
   orderName: string;
@@ -20,11 +19,11 @@ interface IPayment {
 export default async function CheckoutSuccess({
   searchParams,
 }: {
-  searchParams: ParsedUrlQuery | Promise<ParsedUrlQuery>;
+  searchParams: Promise<{ orderId: string }>;
 }) {
-  const resolvedSearchParams = await Promise.resolve(searchParams);
+  const resolvedSearchParams = await searchParams;
   const orderId = resolvedSearchParams.orderId;
-  if (!orderId || Array.isArray(orderId)) {
+  if (!orderId) {
     return <p>Invalid order ID.</p>;
   }
 
@@ -37,35 +36,18 @@ export default async function CheckoutSuccess({
   const url = `https://api.tosspayments.com/v1/payments/orders/${orderId}`;
   const basicToken = Buffer.from(`${secretKey}:`, "utf-8").toString("base64");
 
-  let payment: IPayment | null = null;
-
-  try {
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Basic ${basicToken}`,
-        "Content-Type": "application/json"
-      }
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch payment data: ${response.statusText}`);
+  const payment: IPayment = await fetch(url, {
+    headers: {
+      Authorization: `Basic ${basicToken}`,
+      "Content-Type": "application/json"
     }
-
-    payment = await response.json();
-  } catch (error) {
-    console.error("Error fetching payment data:", error);
-    return <p>Failed to load payment details.</p>;
-  }
-
-  if (!payment) {
-    return <p>Payment details not found.</p>;
-  }
+  }).then(response => response.json());
 
   const { card } = payment;
 
   return (
     <section className={styles.success}>
-      <Heading title="Order Success"/>
+      <Heading title="Order Success" />
       <ul className={styles.list}>
         <li><b>Product:</b> {payment.orderName}</li>
         <li><b>Order Number:</b> {payment.orderId}</li>
