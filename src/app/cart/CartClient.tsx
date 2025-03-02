@@ -25,7 +25,7 @@ const CartClient = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn)
 
     const increaseCart = (cart: ICartItem) => {
-        dispatch(ADD_TO_CART({ ...cart, quantity: 1 }));
+        dispatch(ADD_TO_CART(cart));
     }
 
     const decreaseCart = (cart: ICartItem) => {
