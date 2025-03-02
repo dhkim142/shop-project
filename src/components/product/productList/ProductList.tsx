@@ -6,11 +6,7 @@ import Pagination from '@/components/pagination/Pagination'
 import ProductItem from '../productItem/ProductItem'
 import { IProduct } from '@/types'
 
-interface IProductListProps {
-  products: IProduct[];
-}
-
-const ProductList = ({products}: IProductListProps) => {
+const ProductList = () => {
 
   const [sort, setSort] = useState('latest');
 
@@ -20,10 +16,10 @@ const ProductList = ({products}: IProductListProps) => {
 
   useEffect(() => {
     dispatch(SORT_PRODUCTS({ products: filteredProducts, sort }))      //sort by price in the filtered products
-  }, [dispatch, products, sort]);
+  }, [dispatch, sort]);
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [productsPerPage, setProductsPerPage] = useState(1)
+  const [productsPerPage, setProductsPerPage] = useState(10)
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
@@ -31,6 +27,8 @@ const ProductList = ({products}: IProductListProps) => {
     indexOfFirstProduct,
     indexOfLastProduct
   )
+
+  console.log('currentProducts', currentProducts);
 
   const isRadioSelected = (value: string) => sort === value;                    //use Radio fuction to choose one of the buttons of same group
   const handleRadioClick = (e: ChangeEvent<HTMLInputElement>) => setSort(e.target.value);
@@ -88,7 +86,7 @@ const ProductList = ({products}: IProductListProps) => {
         )
           :
           <>
-            {currentProducts.map((product) => {                     
+            {currentProducts.map((product: IProduct) => {                     
               return (                                              
                 <div key={product.id}>
                   <ProductItem {...product} />
